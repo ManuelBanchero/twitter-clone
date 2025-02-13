@@ -1,0 +1,184 @@
+@font-face {
+    font-family: "San Francisco";
+    font-weight: 400;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+@font-face {
+    font-family: "San Francisco Bold";
+    src: url(/fonts/SFPRODISPLAYREGULAR.OTF);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "San Francisco";
+    height: 135vh;
+}
+
+.container {
+    display: flex;
+    width: 414px;
+    padding: 7px 20px 5px 20px;
+    margin: 0 auto;
+}
+
+.bold-font {
+    font-family: "San Francisco Bold";
+    font-weight: bold;
+}
+
+.gray-font {
+    color: #687684;
+}
+
+.gray {
+    color: rgb(191, 197, 204);
+}
+
+.profile-img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+i {
+    cursor: pointer;
+}
+
+.blue {
+    color: #4C9EEB;
+}
+
+/* NAV */
+
+nav .container {
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .item-nav {
+    font-size: 25px;
+    color: #4C9EEB;
+}
+
+/* TWEET FEED*/
+.tweet-container {
+    width: 414px;
+    margin: auto;
+    border-top: .5px solid rgb(191, 197, 204);
+    padding: 10px 20px 10px 20px;
+}
+
+.tweet {
+    display: flex;
+    gap: 8px;
+}
+
+.user-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.user-profile-container i {
+    font-size: 13px;
+    margin-left: auto;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.tweet .bigger {
+    width: 50px;
+    height: 50px;
+}
+
+.line {
+    width: 2px;
+    background-color: rgb(191, 197, 204);
+    position: absolute;
+    top: 72px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+}
+
+.thread-img {
+    margin: auto auto 0 auto;
+    transform: translateY(20%);
+}
+
+.verified {
+    position: relative;
+    display: inline-block;
+}
+
+.verified .fa-check {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8px;
+    color: white;
+}
+
+.following-interaction {
+    font-size: 13px;
+    display: flex;
+    gap: 8px;
+}
+
+.user-data {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.user-data i {
+    margin-left: auto;
+}
+
+.tweet-text {
+    margin-top: 2px;
+    margin-bottom: 0;
+}
+
+.tweet-details {
+    margin-top: 8px;
+    display: flex;
+    width: 260px;
+    justify-content: space-between;
+}
+
+.tweet-detail {
+    font-size: 14px;
+}
+
+.thread {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* FOOTER */
+footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    background-color: white;
+}
+
+footer .container {
+    border-top: .5px solid rgb(191, 197, 204);
+    justify-content: space-around;
+    padding: 12px 0;
+}
+
+footer .container i {
+    font-size: 20px;
+}
