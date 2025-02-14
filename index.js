@@ -10,6 +10,10 @@ document.addEventListener('click', function(e) {
         handleLikeClick(e.target.dataset.like)
     } else if (e.target.dataset.retweet) {
         handleRetweetClick(e.target.dataset.retweet)
+    } else if (e.target.dataset.menu) {
+        handleMenuClick(e.target.dataset.menu)
+    } else if (e.target.dataset.deleteBtn) {
+        handleDeleteClick(e.target.dataset.deleteBtn)
     }
 })
 
@@ -84,6 +88,21 @@ function handleRetweetClick(tweetId) {
     render()
 }
 
+function handleMenuClick(tweetId) {
+    const menuIcon = document.getElementById(tweetId)
+    menuIcon.firstElementChild.classList.toggle('display-none')
+}
+
+function handleDeleteClick(tweetId) {
+    const index = tweetsData.findIndex(function(tweet){
+        return tweet.uuid === tweetId
+    })
+    if (index !=- -1) {
+        tweetsData.splice(index, 1)
+    }
+    render()
+}
+
 function render() {
     const feed = document.getElementById('tweets-feed')
     let feedHtml = ''
@@ -121,7 +140,18 @@ function getTweetHtml(tweet) {
                             </span>
                             <span class="gray-font">${tweet.handle}</span>
                             <span class="gray-font">.3h</span>
-                            <i class="fa-solid fa-chevron-down gray"></i>
+                            <i class="fa-solid fa-chevron-down gray"
+                                data-menu="${tweet.uuid}"
+                                id="${tweet.uuid}"
+                            >
+                                <div class="delete-tweet-container display-none">
+                                    <button class="tweet-btn" data-delete-btn="${tweet.uuid}">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                        Delete Tweet
+                                </button>
+                            </div>
+                            </i>
+                            
                         </div>
                         <p class="tweet-text">
                             ${tweet.tweetText}

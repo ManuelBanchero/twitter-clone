@@ -68,6 +68,10 @@ nav .item-nav {
 }
 
 /* TWEET FEED*/
+.tweets-feed {
+    padding-bottom: 40px;
+}
+
 .tweet-container {
     width: 414px;
     margin: auto;
@@ -263,6 +267,19 @@ nav .item-nav {
 
 button:disabled {
     opacity: 50%;
+}
+
+.delete-tweet-container {
+    position: relative;
+}
+
+.delete-tweet-container button {
+    display: inline-block;
+    position: absolute;
+    width: 150px;
+    top: 5px;
+    right: -5px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(255, 255, 255, 0.2);
 }
 
 /* FOOTER */
