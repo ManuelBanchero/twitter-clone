@@ -13,7 +13,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: "San Francisco";
-    height: 135vh;
 }
 
 .container {
@@ -50,6 +49,10 @@ i {
 
 .blue {
     color: #4C9EEB;
+}
+
+textarea {
+    resize: none;
 }
 
 /* NAV */
@@ -112,6 +115,10 @@ nav .item-nav {
     transform: translateY(20%);
 }
 
+.thread a {
+    text-decoration: none;
+}
+
 .verified {
     position: relative;
     display: inline-block;
@@ -163,6 +170,101 @@ nav .item-nav {
     margin-bottom: 0;
 }
 
+.liked {
+    color: rgb(229, 57, 127);
+}
+
+.retweeted {
+    color: rgb(83, 183, 129);
+}
+
+.new-tweet-btn {
+    position: fixed;
+    display: inline-block;
+    bottom: 55px;
+    right: 12px;
+}
+
+.new-tweet-btn .fa-circle {
+    font-size: 50px;
+    text-shadow: .5px 1px rgb(191, 197, 204);
+}
+
+.new-tweet-btn .fa-plus {
+    position: absolute;
+    top: 45%;
+    left: 38%;
+    transform: translate(-80%, -100%);
+    font-size: 10px;
+    color: white;
+}
+
+.new-tweet-btn .fa-feather {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 17px;
+    color: white;
+}
+
+.new-tweet-input {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 80vw;
+    height: 40vh;
+    border: .5px solid rgb(191, 197, 204);
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-btn {
+    border: none;
+    background-color: white;
+    padding: 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tweet-btn {
+    padding: 8px 13px;
+    background-color: #4C9EEB;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.input-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.input-container textarea {
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    width: 100%;
+    height: 300px;
+    padding: 10px 5px;
+}
+
+button:disabled {
+    opacity: 50%;
+}
+
 /* FOOTER */
 footer {
     position: fixed;
@@ -171,14 +273,18 @@ footer {
     left: 0;
     margin: auto;
     background-color: white;
+    border-top: .5px solid rgb(191, 197, 204);
 }
 
 footer .container {
-    border-top: .5px solid rgb(191, 197, 204);
     justify-content: space-around;
     padding: 12px 0;
 }
 
 footer .container i {
     font-size: 20px;
+}
+
+.display-none {
+    display: none;
 }
