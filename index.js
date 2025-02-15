@@ -1,6 +1,8 @@
 import { tweetsData } from "./data.js";
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
+const TWEETS_DB = 'tweetsData'
+
 document.getElementById('new-tweet-btn').addEventListener('click', function() {
     handleTweetBtnClick()
 })
@@ -36,7 +38,7 @@ function handleTweetBtnClick() {
 
     tweetBtn.addEventListener('click', function() {
         if(!tweetBtn.disabled && tweetInput.value) {
-            tweetsData.unshift({
+            addToDB({
                 name: 'Manuel Banchero',
                 handle: '@manu_banchero',
                 profilePic: 'images/manu-banchero.jpg',
@@ -57,7 +59,6 @@ function handleTweetBtnClick() {
 
             tweetInput.value = ''
             newTweetContainer.classList.add('display-none')
-            updateDB(tweetsData[0])
             render()
         }
     })
@@ -93,41 +94,55 @@ function handleMenuClick(tweetId) {
 }
 
 function handleDeleteClick(tweetId) {
-    const index = tweetsData.findIndex(function(tweet){
-        return tweet.uuid === tweetId
-    })
-    if (index !=- -1) {
-        tweetsData.splice(index, 1)
-    }
     removeFromDB(tweetId)
     render()
 }
 
+function addToDB(element) {
+    const db = getDB()
+    db.unshift(element)
+    localStorage.setItem(TWEETS_DB, JSON.stringify(db))
+}
+
 function getFromDB(id) {
-    return JSON.parse(localStorage.getItem(id))
+    const db = getDB()
+    return db.filter(function(el) {
+        return el.uuid === id
+    })[0]
 }
 
 function updateDB(element) {
-    localStorage.setItem(element.uuid, JSON.stringify(element))
+    const db = getDB()
+    const index = db.findIndex(function(el) {
+        return el.uuid === element.uuid
+    })
+    db[index] = element
+    localStorage.setItem(TWEETS_DB, JSON.stringify(db))
 }
 
 function removeFromDB(id) {
-    localStorage.removeItem(id)
+    const db = getDB()
+    const index = db.findIndex(function(el){
+        return el.uuid === id
+    })
+    if (index !=- -1) {
+        db.splice(index, 1)
+    }
+    localStorage.setItem(TWEETS_DB, JSON.stringify(db))
+}
+
+function getDB() {
+    return JSON.parse(localStorage.getItem(TWEETS_DB))
 }
 
 function render() {
+    const tweetsDataDB = getDB()
     const feed = document.getElementById('tweets-feed')
     let feedHtml = ''
-    tweetsData.forEach(function(tweet) {
-        if (getElementFromDB(tweet.uuid)) { // si el elemento existe en la DB
-            feedHtml += getTweetHtml(getElementFromDB(tweet.uuid))
-        }
+    tweetsDataDB.forEach(function(tweet) {
+        feedHtml += getTweetHtml(tweet)
     })
     feed.innerHTML = feedHtml
-}
-
-function getElementFromDB(id) {
-    return JSON.parse(localStorage.getItem(id))
 }
 
 function getTweetHtml(tweet) {
@@ -311,12 +326,8 @@ function getRetweetedClass(isRetweeted) {
 }
 
 function loadDB() {
-    tweetsData.forEach(function(tweet) {
-        localStorage.setItem(tweet.uuid, JSON.stringify(tweet))
-    })
+    localStorage.setItem(TWEETS_DB, JSON.stringify(tweetsData))
 }
 
 //loadDB()
 render()
-
-console.log(localStorage.key)
