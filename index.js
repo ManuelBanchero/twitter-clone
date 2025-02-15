@@ -57,34 +57,33 @@ function handleTweetBtnClick() {
 
             tweetInput.value = ''
             newTweetContainer.classList.add('display-none')
+            updateDB(tweetsData[0])
             render()
         }
     })
 }
 
 function handleLikeClick(tweetId) {
-    const targetedTweetObj = tweetsData.filter(function(tweet) {
-        return tweet.uuid === tweetId
-    })[0]
+    const targetedTweetObj = getFromDB(tweetId)
     if (targetedTweetObj.isLiked) {
         targetedTweetObj.likes--
     } else {
         targetedTweetObj.likes++
     }
     targetedTweetObj.isLiked = !targetedTweetObj.isLiked
+    updateDB(targetedTweetObj)
     render()
 }
 
 function handleRetweetClick(tweetId) {
-    const targetedTweetObj = tweetsData.filter(function(tweet) {
-        return tweet.uuid === tweetId
-    })[0]
+    const targetedTweetObj = getFromDB(tweetId)
     if(targetedTweetObj.isRetweeted) {
         targetedTweetObj.retweets--
     } else {
         targetedTweetObj.retweets++
     }
     targetedTweetObj.isRetweeted = !targetedTweetObj.isRetweeted
+    updateDB(targetedTweetObj)
     render()
 }
 
@@ -100,16 +99,35 @@ function handleDeleteClick(tweetId) {
     if (index !=- -1) {
         tweetsData.splice(index, 1)
     }
+    removeFromDB(tweetId)
     render()
+}
+
+function getFromDB(id) {
+    return JSON.parse(localStorage.getItem(id))
+}
+
+function updateDB(element) {
+    localStorage.setItem(element.uuid, JSON.stringify(element))
+}
+
+function removeFromDB(id) {
+    localStorage.removeItem(id)
 }
 
 function render() {
     const feed = document.getElementById('tweets-feed')
     let feedHtml = ''
     tweetsData.forEach(function(tweet) {
-        feedHtml += getTweetHtml(tweet)
+        if (getElementFromDB(tweet.uuid)) { // si el elemento existe en la DB
+            feedHtml += getTweetHtml(getElementFromDB(tweet.uuid))
+        }
     })
     feed.innerHTML = feedHtml
+}
+
+function getElementFromDB(id) {
+    return JSON.parse(localStorage.getItem(id))
 }
 
 function getTweetHtml(tweet) {
@@ -261,11 +279,11 @@ function getThreadHtml(tweet) {
 
 function getDetails(detail) {
     detail = detail.toString()
-    if (detail > 10000) {
+    if (detail >= 10000 && detail < 100000) {
         return `${detail[0]}${detail[1]}K`
-    } else if (detail > 100000) {
+    } else if (detail >= 100000 && detail < 1000000) {
         return `${detail[0]}${detail[1]}${detail[2]}K`
-    } else if (detail > 1000000000) {
+    } else if (detail >= 1000000) {
         return `${detail[0]}M`
     }
     return detail
@@ -292,4 +310,13 @@ function getRetweetedClass(isRetweeted) {
     return ''
 }
 
+function loadDB() {
+    tweetsData.forEach(function(tweet) {
+        localStorage.setItem(tweet.uuid, JSON.stringify(tweet))
+    })
+}
+
+//loadDB()
 render()
+
+console.log(localStorage.key)
